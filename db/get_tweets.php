@@ -50,7 +50,7 @@ $stream->db_connect();
 // The keywords for tweet collection are entered here as an array
 // More keywords can be added as array elements
 // For example: array('recipe','food','cook','restaurant','great meal')
-$stream->setTrack(array('recipe'));
+$stream->setTrack(array('intern','placed','job','summerintern','summerintern2014','intern2014','internship','summerinternship2014','summerinternship14','intern14'));
 
 // Start collecting tweets
 // Automatically call enqueueStatus($status) with each tweet's JSON data
