@@ -1,0 +1,42 @@
+Changes in version 0.30 - Jan. 12, 2014
+
+1. If you are running a previous copy of this code, you need to modify the json_cache and tweets tables:
+
+   The json_cache table used a field called parsed to record the parsing status of each new tweet. This 
+   field started as 0 and was set to 1 when parsed. This field has now been removed. The parse_tweets.php
+   script now deletes each row in the json_cache table after it has been parsed. This speeds up insertions,
+   since the json_cache table remains very small. You can remove the parsed field from the json_cache table. 
+
+   The parse_tweets.php code now flags retweets with a field called is_rt in the tweets table. You MUST 
+   add an is_rt field as a Boolean (tinyint) field in the tweets table, or else the parsing code will
+   fail. 
+   
+   The entities field is no longer recorded with tweets for later use, so you can delete the 
+   entities field from the tweets table. This will reduce the size of the tweets table, and thus 
+   speed up insertions. The entities field was used in earlier versions to linkify tweet text 
+   in the display module. This linkify code has been modified to no longer need entities to create 
+   proper links for mentions, tags, and URLs in tweets.
+
+2. The streaming API sometimes fails to deliver a proper id_str property with each tweet to record the
+tweet id. This is due to two causes. Deletion notices are in a different format from tweets and the id_str
+field is stored in a different object structure from a normal tweet. The API also has an intermittent error
+that causes it to drop the id_str value. Both of these issues caused warning notices that end up in the 
+error_log.txt file. The get_tweets.php script has been changed in this version to ignore tweets with a 
+missing or improperly formed id_str value. 
+
+3. The parse_tweets.php script now deletes rows in the json_cache table as they are being parsed. 
+
+4. The parse_tweets.php script has been modified to handle retweets in two new ways:
+   The entities from the original tweet are now used to extract mentions, tags, and URLs. This is a more 
+   complete set of data than the entities found in the retweeted version. 
+   
+   A new is_rt flag is set to 1 for a retweet, and this is stored in the tweets table. 
+   
+5. The parse_tweets.php script has been modified to only record tweets that have a specific language. This is
+done by checking the lang property in each tweet. The distribution code checks for a language value of 'en' 
+for English, but you can change this to any language. 
+
+6. One cause of confusion in earlier versions was the need to fill in paths to the code directories in 
+140dev_config.php. These path constants have been removed from this file, and the streaming API database code
+has been modified to no longer need them. The tweet display plugin still needs the URL for Ajax calls, and 
+this should now be entered in the twitter_display_config.php file found in the code for that plugin. 
