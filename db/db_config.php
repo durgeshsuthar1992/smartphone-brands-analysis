@@ -6,5 +6,5 @@
   $db_name = 'tweets'; 
 	
 	// MySQL time zone setting to normalize dates
-	define('TIME_ZONE','America/New_York');
+	define('TIME_ZONE','Asia/Kolkata');
 ?> 
