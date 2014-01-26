@@ -50,8 +50,13 @@ $stream->db_connect();
 // The keywords for tweet collection are entered here as an array
 // More keywords can be added as array elements
 // For example: array('recipe','food','cook','restaurant','great meal')
-$stream->setTrack(array('intern','placed','job','summerintern','summerintern2014','intern2014','internship','summerinternship2014','summerinternship14','intern14'));
-$stream->setLocationByCircle(array(77.23,28.61,100));
+$stream->setTrack(array('nexus','nexus5','nexus 5','canvas','micromax','moto g','nexus7','canvasHD','s4','iphone','iphone5','iphone5s','iphone4s','iphone5c','xperia z1','xperia z','galaxy s4','galaxy s3','samsung','htc','sony','s duos','nokia','lumia','galaxy grand','galaxy note','galaxy note2','xperia c','htc one','htc onex','galaxy note3','lg g2','lumia520','moto x','nexus 4',));
+/*$stream->setLocationByCircle(array(
+        array(77.23,28.61,100)
+  ));*/
+/*$stream->setLocations(array(
+                  array(75.23,26.61,78.90,29.70)
+     ));*/
 // Start collecting tweets
 // Automatically call enqueueStatus($status) with each tweet's JSON data
 $stream->consume();

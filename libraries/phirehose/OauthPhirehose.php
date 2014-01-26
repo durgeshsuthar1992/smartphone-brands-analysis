@@ -144,6 +144,11 @@ abstract class OauthPhirehose extends Phirehose
     /** Overrides base class function */
 	protected function getAuthorizationHeader($url,$requestParams)
 	{
+		if (count($this->locationBoxes) > 0)
+                {
+                        $requestParams['locations'] = implode(',', $this->locationBoxes);
+                }
+                
 		return $this->getOAuthHeader('POST', $url, $requestParams);
 	}
 }
